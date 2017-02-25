@@ -1,0 +1,12 @@
+server:
+  type: default
+  adminContextPath: /admin
+  applicationContextPath: /
+  applicationConnectors:
+    - type: http
+      port: 8085
+  adminConnectors:
+    - type: http
+      port: 8086
+
+test : "It works"
