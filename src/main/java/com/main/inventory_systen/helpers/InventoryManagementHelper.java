@@ -27,36 +27,70 @@ public class InventoryManagementHelper {
 		return new IneventoryManagementServiceImpl();
 	}
 
-	public void updateOperatorData(Operator operator) throws IllegalArgumentException, IllegalAccessException {
+	public Response updateOperatorData(Operator operator) throws IllegalArgumentException, IllegalAccessException {
 		
-		Document operatorDoc = UtilityMethods.JavaToDocument(operator);
-		operatorCollection.updateOne(null, operatorDoc);
+		try {
+			getIneventoryManagementServiceImpl().updateOperatorData(operator);
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+		return Response.status(Response.Status.OK).entity(Constants.SUCCESS_INSERT).build();	
+		
+		
+	}
+
+	public Response updateDriverData(Driver driver) throws IllegalArgumentException, IllegalAccessException {
+		try {
+			getIneventoryManagementServiceImpl().updateDriverData(driver);
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+		return Response.status(Response.Status.OK).entity(Constants.SUCCESS_INSERT).build();	
 		
 		
 	}
 
-	public void updateDriverData(Driver driver) {
-		// TODO Auto-generated method stub
+	public Response updateCarData(Car car) throws IllegalArgumentException, IllegalAccessException {
+		try {
+			getIneventoryManagementServiceImpl().updateCarData(car);;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+		return Response.status(Response.Status.OK).entity(Constants.SUCCESS_INSERT).build();
 		
 	}
 
-	public void updateCarData(Car car) {
-		// TODO Auto-generated method stub
+	public Response deleteCar(Car car) {
+		try {
+			getIneventoryManagementServiceImpl().deleteCar(car);;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+		return Response.status(Response.Status.OK).entity(Constants.SUCCESS_INSERT).build();
 		
 	}
 
-	public void deleteCar(String carId) {
-		// TODO Auto-generated method stub
+	public Response deleteOperator(Operator operator) {
+		try {
+			getIneventoryManagementServiceImpl().deleteOperator(operator);;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+		return Response.status(Response.Status.OK).entity(Constants.SUCCESS_INSERT).build();
 		
 	}
 
-	public void deleteOperator(String operatorId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void deleteDriver(String driverId) {
-		// TODO Auto-generated method stub
+	public Response deleteDriver(Driver driver) {
+		try {
+			getIneventoryManagementServiceImpl().deleteDriver(driver);;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+		return Response.status(Response.Status.OK).entity(Constants.SUCCESS_INSERT).build();
 		
 	}
 
@@ -86,8 +120,13 @@ public class InventoryManagementHelper {
 		
 	}
 
-	public void createCar(Car car) {
-		// TODO Auto-generated method stub
+	public Response createCar(Car car) {
+		try {
+			getIneventoryManagementServiceImpl().createCar(car);;
+		} catch (Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+		return Response.status(Response.Status.OK).entity(Constants.SUCCESS_INSERT).build();
 		
 	}
 

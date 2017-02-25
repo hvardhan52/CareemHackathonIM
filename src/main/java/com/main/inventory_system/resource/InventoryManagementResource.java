@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.main.inventory_system.models.Car;
 import com.main.inventory_system.models.Driver;
 import com.main.inventory_system.models.Operator;
 import com.main.inventory_system.services.IneventoryManagementServiceImpl;
@@ -25,7 +26,7 @@ public InventoryManagementService inventoryManagementService;
 	}
 	
 	@POST
-	@Path("/createOpertaorDetails")
+	@Path("/createOpertaorData")
 	public Response createOpertaor(Operator operator) {
 		
 		return getInventoryManagermentHelper().createOperator(operator);
@@ -33,11 +34,69 @@ public InventoryManagementService inventoryManagementService;
 	}
 	
 	@POST
-	@Path("/createDriverDetails")
+	@Path("/createDriverData")
 	public Response createDriver(Driver driver){
 		
 		return getInventoryManagermentHelper().createDriver(driver);
 	
 	}
+
+	@POST
+	@Path("/createCarData")
+	public Response createCar(Car car){
+		
+		return getInventoryManagermentHelper().createCar(car);
+	
+	}
+	@POST
+	@Path("/updateCarData")
+	public Response updateCar(Car car) throws IllegalArgumentException, IllegalAccessException{
+		
+		return getInventoryManagermentHelper().updateCarData(car);
+	
+	}
+
+	@POST
+	@Path("/updateOperatorData")
+	public Response updateOperator(Operator operator) throws IllegalArgumentException, IllegalAccessException{
+		
+		return getInventoryManagermentHelper().updateOperatorData(operator);
+	
+	}
+	
+
+	@POST
+	@Path("/updateDriverData")
+	public Response updateDriver(Driver driver) throws IllegalArgumentException, IllegalAccessException{
+		
+		return getInventoryManagermentHelper().updateDriverData(driver);
+	
+	}
+	
+	@POST
+	@Path("/deleteDriverData")
+	public Response deleteDriver(Driver driver) throws IllegalArgumentException, IllegalAccessException{
+		
+		return getInventoryManagermentHelper().deleteDriver(driver);
+	
+	}
+	
+	@POST
+	@Path("/deleteCarData")
+	public Response deleteCar(Car car) throws IllegalArgumentException, IllegalAccessException{
+		
+		return getInventoryManagermentHelper().deleteCar(car);
+	
+	}
+
+	@POST
+	@Path("/deleteOperatorData")
+	public Response deleteOperator(Operator operator) throws IllegalArgumentException, IllegalAccessException{
+		
+		return getInventoryManagermentHelper().deleteOperator(operator);
+	
+	}
+	
+	
 
 }
