@@ -1,4 +1,4 @@
-package inventory_system.resource;
+package com.main.inventory_system.resource;
 
 public class InventoryTrackingResource {
 

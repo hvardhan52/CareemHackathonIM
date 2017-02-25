@@ -5,12 +5,12 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import com.main.inventory_system.context.ConfigContext;
 import com.main.inventory_system.context.MongoDBContext;
 import com.main.inventory_system.context.SolrCarLocationContext;
-import com.main.inventory_system.context.SolrShopContext;
+import com.main.inventory_system.resource.InventoryManagementResource;
+import com.main.inventory_system.resource.InventoryTrackingResource;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
-import inventory_system.resource.InventoryManagementResource;
-import inventory_system.resource.InventoryTrackingResource;
+
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 
@@ -33,10 +33,8 @@ public class App extends Application<Config> {
 		System.out.println("Hello Universe!");
 		System.out.println("Hello config " + config.getTest());
 		final MongoClient mongoClient = new MongoClient(new MongoClientURI(config.getMongoConnectionString()));
-		final HttpSolrClient productserver = new HttpSolrClient(config.getSolrConnectionString());
-		final HttpSolrClient shopServer = new HttpSolrClient(config.getSolrShopConnectionString());
-		SolrCarLocationContext.getInstance().init(productserver);
-		SolrShopContext.getInstance().init(shopServer);
+		final HttpSolrClient locationServer = new HttpSolrClient(config.getSolrConnectionString());
+		SolrCarLocationContext.getInstance().init(locationServer);
 		MongoDBContext.getInstance().init(mongoClient);
 		ConfigContext.getInstance().init(config);
 		environment.jersey().register(new InventoryManagementResource());
