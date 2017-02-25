@@ -1,1 +1,1 @@
-![alt tag](https://drive.google.com/file/d/0BxKLVftt4MwJaHR1bDc3eEtuTjQ/view?usp=sharing)
+![alt tag](https://github.com/hvardhan52/CareemHackathonIM/blob/master/src/resources/Inventory%20Management.jpg)
