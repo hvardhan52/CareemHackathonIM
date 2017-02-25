@@ -45,9 +45,11 @@ public class KafkaProducerService {
 	      
 	     this.producer = new KafkaProducer
 	    	         <String, String>(props);
+	     
 	}
 	
 	public void postCabLocationToKafka(CarLocation carLocation){
-		producer.send(new ProducerRecord<String, String>(topicName,carLocation.toString()));
+		System.out.println(" producer : "+carLocation.toString());
+		producer.send(new ProducerRecord<String, String>(topicName,carLocation.getCarId(), carLocation.toString()));
 	}
 }

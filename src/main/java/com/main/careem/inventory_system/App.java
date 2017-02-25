@@ -43,6 +43,7 @@ public class App extends Application<Config> {
 		ConfigContext.getInstance().init(config);
 		environment.jersey().register(new InventoryManagementResource());
 		environment.jersey().register(new InventoryTrackingResource());
+		new KafkaConsumerService();
 		ExecutorService executor = Executors.newFixedThreadPool(1);
 		executor.submit(new KafkaConsumerService());
 

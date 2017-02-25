@@ -1,5 +1,6 @@
 package com.main.inventory_system.services;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.Callable;
@@ -7,6 +8,10 @@ import java.util.concurrent.Callable;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.solr.client.solrj.SolrServerException;
+
+import com.google.gson.Gson;
+import com.main.inventory_system.models.CarLocation;
 
 public class KafkaConsumerService implements Runnable {
 	KafkaConsumer<String, String> consumer;
@@ -27,6 +32,8 @@ public class KafkaConsumerService implements Runnable {
        "org.apache.kafka.common.serialization.StringDeserializer");
     consumer = new KafkaConsumer
        <String, String>(props);
+//    Thread th = new Thread(this);
+//    th.start();
 	}
 	
 	public void run(){
@@ -35,15 +42,29 @@ public class KafkaConsumerService implements Runnable {
 	      
 	      //print the topic name
 	      System.out.println("Subscribed to topic " + topicName);
-	      int i = 0;
+	      
 	      
 	      while (true) {
+	    	  System.out.println("***********************");
 	         ConsumerRecords<String, String> records = consumer.poll(100);
-	         for (ConsumerRecord<String, String> record : records)
+	         for (ConsumerRecord<String, String> record : records){
 	         
 	         // print the offset,key and value for the consumer records.
 	         System.out.printf("offset = %d, key = %s, value = %s\n", 
 	            record.offset(), record.key(), record.value());
+	         
+	         try {
+	        	Gson gson = new Gson();
+	        	CarLocation carLocation = gson.fromJson(record.value(), CarLocation.class);
+				SolrService.setDataInSolr(carLocation);
+			} catch (SolrServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	         }
 	      }
 	}
 

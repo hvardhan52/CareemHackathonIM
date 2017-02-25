@@ -17,7 +17,7 @@ public class Config extends Configuration {
 	private String mongoConnectionString = "mongodb://localhost:27017/?maxPoolSize=900";
 	
 	@JsonProperty
-	private String solrConnectionString = "http://localhost:8983/solr/product";
+	private String solrConnectionString = "http://localhost:8983/solr/carLocation";
 	
 	public String getTest() {
 		return test;
