@@ -8,4 +8,9 @@ public class Constants {
 	
 	public static String SUCCESS_INSERT = "{\"success\":\"Successfully Inserted\"}";
 	
+    public static final String SEARCH_FIELD = "sfield";
+    public static final String SEARCH_FIELD_NAME = "*nloc";
+    public static final String CENTRE = "pt";
+    public static final String DISTANCE = "d";
+	
 }

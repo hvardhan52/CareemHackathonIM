@@ -1,5 +1,8 @@
 package com.main.careem.inventory_system;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 
 import com.main.inventory_system.context.ConfigContext;
@@ -7,6 +10,7 @@ import com.main.inventory_system.context.MongoDBContext;
 import com.main.inventory_system.context.SolrCarLocationContext;
 import com.main.inventory_system.resource.InventoryManagementResource;
 import com.main.inventory_system.resource.InventoryTrackingResource;
+import com.main.inventory_system.services.KafkaConsumerService;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
@@ -39,6 +43,9 @@ public class App extends Application<Config> {
 		ConfigContext.getInstance().init(config);
 		environment.jersey().register(new InventoryManagementResource());
 		environment.jersey().register(new InventoryTrackingResource());
+		new KafkaConsumerService();
+		ExecutorService executor = Executors.newFixedThreadPool(1);
+		executor.submit(new KafkaConsumerService());
 
 	}
 }
