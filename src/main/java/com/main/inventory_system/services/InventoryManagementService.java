@@ -8,21 +8,21 @@ public interface InventoryManagementService {
 	
 	void createOperator(Operator operator) throws IllegalArgumentException, IllegalAccessException;
 	
-	void createCar(Car car);
+	void createCar(Car car) throws IllegalArgumentException, IllegalAccessException;
 	
-	void createDriver(Driver driver);
+	void createDriver(Driver driver) throws IllegalArgumentException, IllegalAccessException;
 	
 	void updateOperatorData(Operator operator) throws IllegalArgumentException, IllegalAccessException;
 	
-	void updateDriverData(Driver driver);
+	void updateDriverData(Driver driver) throws IllegalArgumentException, IllegalAccessException;
 	
-	void updateCarData(Car car);
+	void updateCarData(Car car) throws IllegalArgumentException, IllegalAccessException;
 	
-	void deleteCar(String carId);
+	void deleteCar(Car car);
 	
-	void deleteOperator(String operatorId);
+	void deleteOperator(Operator operator);
 	
-	void deleteDriver(String driverId);
+	void deleteDriver(Driver driver);
 	
 	void findDriver(String driverid);
 	

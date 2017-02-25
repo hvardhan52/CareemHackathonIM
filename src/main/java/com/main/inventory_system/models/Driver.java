@@ -2,7 +2,7 @@ package com.main.inventory_system.models;
 
 public class Driver {
 
-	    private long driverId;
+	    private Long driverId;
 
 	    private String name;
 
@@ -22,11 +22,11 @@ public class Driver {
 
 	    private double rating;
 
-	    public long getDriverId() {
+	    public Long getDriverId() {
 	        return driverId;
 	    }
 
-	    public void setDriverId(long driverId) {
+	    public void setDriverId(Long driverId) {
 	        this.driverId = driverId;
 	    }
 
