@@ -1,6 +1,7 @@
 package com.main.inventory_system.services;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -35,7 +36,7 @@ public class SolrService {
 		doc.addField("carId",carLocation.getCarId());
 		//doc.addField("aloc", "82.919702,77.642569");
 		doc.addField("aloc", carLocation.getLocation().getlatitude().toString()+","+carLocation.getLocation().getlongitude().toString());
-		doc.addField("timestamp",carLocation.getTimeStamp());
+		doc.addField("timestamp",new Date());
 		System.out.println("Value is "+carLocation.getLocation().getlatitude().toString()+","+carLocation.getLocation().getlongitude().toString());
 		server.add(doc);
 		server.commit();
@@ -54,8 +55,11 @@ public class SolrService {
 		//query.setFields("carId",carId);
 		query.setQuery("*");
 		query.addFilterQuery("{!geofilt sfield=aloc}");
+		
 		query.add(Constants.CENTRE, "82.919702,77.642569");
 		query.add(Constants.DISTANCE, "2");
+		query.addFilterQuery("timestamp:[2012-09-24T00:00:00Z TO 2019-09-24T00:00:00Z]");
+		//query.addFilterQuery("{!geofilt sfield=aloc}");
 		System.out.println("Ammmiiiigo  query is "+query.toQueryString());
 		QueryResponse response = server.query(query);
 	    SolrDocumentList results = response.getResults();
