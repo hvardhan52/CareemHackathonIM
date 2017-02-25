@@ -46,4 +46,5 @@ a. Provide CRUD operations for Inventory dimensions : Car operators Information,
             10. Country
   
   b. It will get the pings from devices kept in the car at every configured time interval. 
+     The location of cars will be stored in SOLR via a kafka client. Kafka is used because the requests will be enormous and we need to        avoid failure due to time out . SOLR is used keeping in view that we need faster access to the enromous data that we have. Solr also      prvides geo sharding which should be used.
    
