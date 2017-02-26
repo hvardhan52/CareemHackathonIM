@@ -13,6 +13,11 @@ import org.apache.solr.client.solrj.SolrServerException;
 import com.google.gson.Gson;
 import com.main.inventory_system.models.CarLocation;
 
+/**
+ * kafka Consumer Service
+ * @author harshvardhan
+ *
+ */
 public class KafkaConsumerService implements Runnable {
 	KafkaConsumer<String, String> consumer;
 	String topicName = "carLocation";

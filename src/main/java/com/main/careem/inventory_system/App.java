@@ -34,8 +34,6 @@ public class App extends Application<Config> {
 
 	@Override
 	public void run(Config config, Environment environment) throws Exception {
-		System.out.println("Hello Universe!");
-		System.out.println("Hello config " + config.getTest());
 		final MongoClient mongoClient = new MongoClient(new MongoClientURI(config.getMongoConnectionString()));
 		final HttpSolrClient locationServer = new HttpSolrClient(config.getSolrConnectionString());
 		SolrCarLocationContext.getInstance().init(locationServer);

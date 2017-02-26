@@ -7,7 +7,13 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import com.main.inventory_system.models.CarLocation;
+import com.main.inventory_system.models.CarLocationWithIndex;
 
+/**
+ * Kafka Producer Service
+ * @author harshvardhan
+ *
+ */
 public class KafkaProducerService {
 	
 	 Producer<String, String> producer;
@@ -49,6 +55,11 @@ public class KafkaProducerService {
 	}
 	
 	public void postCabLocationToKafka(CarLocation carLocation){
+		System.out.println(" producer : "+carLocation.toString());
+		producer.send(new ProducerRecord<String, String>(topicName,carLocation.getCarId(), carLocation.toString()));
+	}
+	
+	public void updateCabLocationToKafka(CarLocationWithIndex carLocation){
 		System.out.println(" producer : "+carLocation.toString());
 		producer.send(new ProducerRecord<String, String>(topicName,carLocation.getCarId(), carLocation.toString()));
 	}

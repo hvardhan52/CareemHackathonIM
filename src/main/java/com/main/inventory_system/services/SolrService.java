@@ -18,6 +18,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.main.inventory_system.context.SolrCarLocationContext;
 import com.main.inventory_system.models.Car;
 import com.main.inventory_system.models.CarLocation;
+import com.main.inventory_system.models.CarLocationWithIndex;
 import com.main.inventory_system.models.Driver;
 import com.main.inventory_system.models.RideModel;
 import com.main.inventory_system.utilities.Constants;
@@ -25,6 +26,7 @@ import com.mongodb.util.JSON;
 
 
 /**
+ * Implements feature related to Solr Service
  * 
  * @author harshvardhan
  * 
@@ -39,6 +41,38 @@ public class SolrService {
 	
 	/**
 	 * Test Method
+	 * @param key
+	 * @param value
+	 * @throws SolrServerException
+	 * @throws IOException
+	 */
+	public static  void deleteDataInSolr(String carId) throws SolrServerException, IOException{
+		server.deleteByQuery("carId="+carId);
+		server.commit();
+	}
+	
+	/**
+	 * Update Data in Solr using the index
+	 * @param key
+	 * @param value
+	 * @throws SolrServerException
+	 * @throws IOException
+	 */
+	public static  void setDataInSolr(CarLocationWithIndex carLocation) throws SolrServerException, IOException{
+		SolrInputDocument doc = new SolrInputDocument();
+		doc.addField("id", carLocation.getIndex());
+		doc.addField("carId",carLocation.getCarId());
+		//doc.addField("aloc", "82.919702,77.642569");
+		doc.addField("aloc", carLocation.getLocation().getlatitude().toString()+","+carLocation.getLocation().getlongitude().toString());
+		doc.addField("timestamp",new Date());
+		doc.addField("status", carLocation.getStatus().toString());
+		System.out.println("Value is "+carLocation.getLocation().getlatitude().toString()+","+carLocation.getLocation().getlongitude().toString());
+		server.add(doc);
+		server.commit();
+	}
+	
+	/**
+	 * Set Data in Solr using the index
 	 * @param key
 	 * @param value
 	 * @throws SolrServerException
@@ -96,37 +130,5 @@ public class SolrService {
 	    }
 	    return rideModelList.toString();
 	}
-//	
-//	/**
-//	 * Auto Complete Suggestions
-//	 * @param searchedString
-//	 * @return
-//	 * @throws IOException 
-//	 * @throws SolrServerException 
-//	 */
-//	public SolrDocumentList getAutoCompleteSuggestion(String searchedString) throws SolrServerException, IOException{
-//		SolrQuery query = new SolrQuery();
-//		query.setQuery(searchedString);
-//		query.setFields(SolrConstants.PRODUCT_ID, SolrConstants.PRODUCT_NAME, SolrConstants.CATGEORY_ID);
-//		QueryResponse response = server.query(query);
-//	    SolrDocumentList results = response.getResults();
-//		return results;
-//	}
-//
-//	public SolrDocumentList findShopNearBy(FindShopNearByRequest findShopNearByRequest) throws SolrServerException, IOException {
-//		SolrQuery query = new SolrQuery();
-//		
-//		//String lat = findShopNearByRequest.getLocConsumer().getlatitude().toString();
-//		//String lon = findShopNearByRequest.getLocConsumer().getlongitude().toString();
-//		query.setQuery("*");
-//		query.addFilterQuery("{!geofilt sfield=aloc}");
-//		query.add(SolrConstants.CENTRE, "12.919702,77.642569");
-//		query.add(SolrConstants.DISTANCE, ConfigContext.getInstance().getConfig().getSolrDistance());
-//		QueryResponse response = shopServer.query(query);
-//	    SolrDocumentList results = response.getResults();
-//	    for (int i = 0; i < results.size(); ++i) {
-//		      System.out.println(results.get(i));
-//		    }
-//		return results;
-//	}
+	
 }
