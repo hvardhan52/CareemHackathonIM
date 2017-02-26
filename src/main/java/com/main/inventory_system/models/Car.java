@@ -2,7 +2,7 @@ package com.main.inventory_system.models;
 
 public class Car {
 	
-	private long carId;
+	private Long carId;
 
     private String carNumber;
 
@@ -16,9 +16,9 @@ public class Car {
 
     private String country;
 
-    private String driverId;
+    private Long driverId;
 
-    private String operatorId;
+    private Long operatorId;
 
 
     public long getCarId() {
@@ -77,19 +77,19 @@ public class Car {
         this.country = country;
     }
 
-    public String getDriverId() {
+    public Long getDriverId() {
         return driverId;
     }
 
-    public void setDriverId(String driverId) {
+    public void setDriverId(Long driverId) {
         this.driverId = driverId;
     }
 
-    public String getOperatorId() {
+    public Long getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(String operatorId) {
+    public void setOperatorId(Long operatorId) {
         this.operatorId = operatorId;
     }
 

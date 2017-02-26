@@ -3,8 +3,8 @@ package com.main.inventory_system.models;
 //
 public class Location {
 	
-	 private  Double latitude;
-	 private  Double longitude;
+	 private  Double latitude = 82.919702D;
+	 private  Double longitude = 77.642569D;
 
 	 public Location (Double lat, Double lon) {
 	        this.latitude = lat;

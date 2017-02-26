@@ -3,6 +3,7 @@ package com.main.inventory_system.services;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import com.google.gson.Gson;
 import com.main.inventory_system.context.MongoDBContext;
 import com.main.inventory_system.models.Car;
 import com.main.inventory_system.models.Driver;
@@ -11,8 +12,10 @@ import com.main.inventory_system.services.InventoryManagementService;
 import com.main.inventory_system.utilities.Constants;
 import com.main.inventory_system.utilities.UtilityMethods;
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
 
 public class IneventoryManagementServiceImpl implements InventoryManagementService{
 	
@@ -68,13 +71,34 @@ public class IneventoryManagementServiceImpl implements InventoryManagementServi
 		
 	}
 
-	public void findDriver(String driverid) {
-		// TODO Auto-generated method stub
+	public Driver findDriver(Long driverid) {
+		try{
+			Document filter = new Document("driverId",new Document("$eq",driverid));
+			
+			FindIterable<Document> drivers=driverCollection.find(filter);
+			String driverString=JSON.serialize(drivers.first());
+			
+			return new Gson().fromJson(driverString, Driver.class);
+		} catch (Exception e) {
+			System.out.println(" Exception is  "+e.getMessage());
+		}
+		return null;
 		
 	}
 
-	public void findCar(String carId) {
-		// TODO Auto-generated method stub
+	public Car findCar(String carId) {
+		try{
+			Long carIdLong = Long.parseLong(carId);
+			Document filter = new Document("carId",new Document("$eq",carIdLong));
+			
+			FindIterable<Document> cars=carCollection.find(filter);
+			String carString=JSON.serialize(cars.first());
+			
+			return new Gson().fromJson(carString, Car.class);
+		} catch (Exception e) {
+			System.out.println(" Exception is  "+e.getMessage());
+		}
+		return null;
 		
 	}
 

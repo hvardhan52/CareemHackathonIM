@@ -24,9 +24,9 @@ public interface InventoryManagementService {
 	
 	void deleteDriver(Driver driver);
 	
-	void findDriver(String driverid);
+	Driver findDriver(Long driverid);
 	
-	void findCar(String carId);
+	Car findCar(String carId);
 	
 	void findOperator(String operatorId);
 

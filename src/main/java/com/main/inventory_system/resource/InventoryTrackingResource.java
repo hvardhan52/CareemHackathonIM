@@ -31,19 +31,20 @@ public class InventoryTrackingResource {
 	
 	}
 	
-	@GET
-	@Path("/test_solr")
+	@POST
+	@Path("/findCabs")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getSolrCheck(@QueryParam(value = "param")String param) {
+	public Response getSolrCheck(CarLocation carLocation) {
+		String cabListString = "No Rides found";
 		SolrService ss = new SolrService();
 		try {
-			SolrService.getDataInSolr(param);
+			 cabListString = SolrService.getDataInSolr(carLocation);
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        return Response.status(Response.Status.OK).entity("{\"success\":\"Solr is alive\"}").build();
+        return Response.status(Response.Status.OK).entity(cabListString).build();
 	}
 
 }

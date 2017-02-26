@@ -8,7 +8,9 @@ public class CarLocation {
 	
 	private Location location;
 	
-    Long timeStamp = System.currentTimeMillis();
+	private Long timeStamp = System.currentTimeMillis();
+    
+    private Boolean status = false;
 
 	public String getCarId() {
 		return carId;
@@ -32,6 +34,16 @@ public class CarLocation {
 
 	public void setTimeStamp(Long timeStamp) {
 		this.timeStamp = timeStamp;
+	}
+	
+	
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	@Override
